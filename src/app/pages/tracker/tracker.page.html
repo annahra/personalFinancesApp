@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -7,11 +7,32 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
 
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
       <ion-fab-button (click)="addCashflow()">
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
     </ion-fab>
+
+    <ion-list>
+      <ion-item-sliding *ngFor="let trans of transactions; let i = index">
+        <ion-item>
+          <ion-icon [name]="trans.category.icon" slot="start" class="category-icon"></ion-icon>
+          
+          <ion-label>
+            <h2>{{ trans.title }}</h2>
+            <p>{{ trans.created_at | date:'MMM dd'}}</p>
+          </ion-label>
+
+          <ion-text slot="end" [color]="trans.type ? 'success' : 'danger'">
+            {{ trans.type ? '+' : '-' }}{{ trans.value | 
+            currency:selectedCurrency:'symbol' }}
+          </ion-text>
+          
+        </ion-item>
+      </ion-item-sliding>
+      
+    </ion-list>
+    
 </ion-content>
